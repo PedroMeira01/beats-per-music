@@ -19,12 +19,13 @@ describe("Product repository test", () => {
     });
 
     afterEach(async () => {
+        await sequelize.truncate({ cascade: true })
         await sequelize.close();
     });
 
     it("Should create a product", async () => {
         const productRepository = new ProductRepository();
-        const product = new Product("1", "Produto 1", "Categoria 1");
+        const product = new Product("1", "Product 1", "Category 1");
 
         await productRepository.create(product);
 
@@ -32,18 +33,18 @@ describe("Product repository test", () => {
 
         expect(productModel.toJSON()).toStrictEqual({
             id: "1",
-            name: "Produto 1",
+            name: "Product 1",
             model: null,
             brand: null,
             description: null,
-            category: "Categoria 1",
+            category: "Category 1",
             approvalStatus: null
         });
     });
 
     it("Should update a product", async () => {
          const productRepository = new ProductRepository();
-         const product = new Product("1", "Produto 1", "Categoria 1");
+         const product = new Product("1", "Product 1", "Category 1");
 
          await productRepository.create(product);
 
@@ -51,16 +52,16 @@ describe("Product repository test", () => {
 
          expect(productModel.toJSON()).toStrictEqual({
             id: "1",
-            name: "Produto 1",
+            name: "Product 1",
             model: null,
             brand: null,
             description: null,
-            category: "Categoria 1",
+            category: "Category 1",
             approvalStatus: null
          });
 
-         product.changeName("Produto 2");
-         product.changeModel("Modelo 1");
+         product.changeName("Product 3");
+         product.changeModel("Model 3");
 
          await productRepository.update(product);
 
@@ -68,47 +69,59 @@ describe("Product repository test", () => {
 
          expect(productModel2.toJSON()).toStrictEqual({
             id: "1",
-            name: "Produto 2",
-            model: "Modelo 1",
+            name: "Product 3",
+            model: "Model 3",
             brand: null,
             description: null,
-            category: "Categoria 1",
+            category: "Category 1",
             approvalStatus: null
          });
+         
     });
 
     it("Should find a product", async () => {
-        const productRepository = new ProductRepository();
-        const product = new Product("1", "Product 1", "Category 1");
 
-        await productRepository.create(product);
-
-        const productModel = await ProductModel.findOne({ where: { id: product.id }});
-        const foundProduct = await productRepository.find(product.id);
-
-        expect(productModel.toJSON()).toStrictEqual({
-            id: foundProduct.id,
-            name: foundProduct.name,
-            model: foundProduct.model,
-            brand: foundProduct.brand,
-            description: foundProduct.description,
-            category: foundProduct.category,
-            approvalStatus: foundProduct.approvalStatus
-        });
+            const productRepository = new ProductRepository();
+            const product = new Product("1", "Product 4", "Category 4");
+    
+            await productRepository.create(product);
+    
+            const productModel = await ProductModel.findOne({ where: { id: product.id }});
+            const foundProduct = await productRepository.find(product.id);
+    
+            expect(productModel.toJSON()).toStrictEqual({
+                id: foundProduct.id,
+                name: foundProduct.name,
+                model: foundProduct.model,
+                brand: foundProduct.brand,
+                description: foundProduct.description,
+                category: foundProduct.category,
+                approvalStatus: foundProduct.approvalStatus
+            });
+        
     });
 
     it("Should find all products", async () => {
-        const productRepository = new ProductRepository();
 
-        const product = new Product("1", "Product 1", "Category 1");
-        await productRepository.create(product);
- 
-        const product2 = new Product("2", "Product 2", "Category 2");
-        await productRepository.create(product2);
+            const productRepository = new ProductRepository();
 
-        const products = [product, product2];
-        const foundProducts = await productRepository.findAll();
+            const product = new Product("1", "Product 1", "Category 1");
+            product.model = null;
+            product.brand = null;
+            product.description = null;
+            product.approvalStatus = null;
+            await productRepository.create(product);
+     
+            const product2 = new Product("2", "Product 2", "Category 2");
+            product2.model = null;
+            product2.brand = null;
+            product2.description = null;
+            product2.approvalStatus = null;
+            await productRepository.create(product2);
+    
+            const products = [product, product2];
+            const foundProducts = await productRepository.findAll();
 
-        expect(products).toEqual(foundProducts);
+            expect(products).toEqual(foundProducts);
     });
 });
