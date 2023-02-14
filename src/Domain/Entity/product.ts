@@ -31,12 +31,56 @@ export default class Product {
         }
     }
 
+    get id(): string {
+        return this._id;
+    }
+
+    get name(): string {
+        return this._name;
+    }
+
+    get model(): string {
+        return this._model;
+    }
+
+    get brand(): string {
+        return this._brand;
+    }
+
+    get description(): string {
+        return this._description;
+    }
+
+    get category(): string {
+        return this._category;
+    }
+
+    get approvalStatus(): string {
+        return this._approvalStatus;
+    }
+
+    set model(model: string) {
+        this._model = model;
+    }
+
+    set brand(brand: string) {
+        this._brand = brand;
+    }
+
+    set description(description: string) {
+        this._description = description;
+    }
+
+    set approvalStatus(approvalStatus: string) {
+        this._approvalStatus = approvalStatus;
+    }
+
     changeName(name: string) {
         this._name = name;
         this.validate();
     }
 
-    changemodel(model: string) {
+    changeModel(model: string) {
         this._model = model;
     }
 

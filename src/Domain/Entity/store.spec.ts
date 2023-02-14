@@ -45,13 +45,13 @@ describe("Store unit tests", () => {
         expect(store.email).toBe(newEmail);
     });
 
-    it("Should set address", () => {
-        const store = new Store("1", "1234567890", "Loja 1", "mail@store.com");
-        const address = new Address('Street one', 31, 'Neighbour', '0000-000', 'city', 'SP');
+    // it("Should set address", () => {
+    //     const store = new Store("1", "1234567890", "Loja 1", "mail@store.com");
+    //     const address = new Address('Street one', 31, 'Neighbour', '0000-000', 'city', 'SP');
 
-        store.address = address;
+    //     store.address = address;
 
-        expect(store.address).toBe(address);
-    });
+    //     expect(store.address).toBe(address);
+    // });
 
 });

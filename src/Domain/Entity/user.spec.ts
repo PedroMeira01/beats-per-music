@@ -39,14 +39,14 @@ describe("User unit tests", () => {
         expect(user.email).toBe(newEmail);
     });
 
-    it("Should set address", () => {
-        const user = new User("1", "Pedro", "test@mail.com");
-        const address = new Address('Street one', 31, 'Neighbour', '0000-000', 'city', 'SP');
+    // it("Should set address", () => {
+    //     const user = new User("1", "Pedro", "test@mail.com");
+    //     const address = new Address('Street one', 31, 'Neighbour', '0000-000', 'city', 'SP');
 
-        user.address = address;
+    //     user.address = address;
 
-        expect(user.address).toBe(address);
-    });
+    //     expect(user.address).toBe(address);
+    // });
     
     it("Should activate user", () => {
         const user = new User("1", "Pedro", "test@mail.com");

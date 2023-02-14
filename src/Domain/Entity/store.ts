@@ -45,9 +45,9 @@ export default class Store {
         return this._email;
     }
 
-    get address() {
-        return this._address;
-    }
+    // get address() {
+    //     return this._address;
+    // }
 
     changeName(name: string) {
         this._name = name;
@@ -58,10 +58,10 @@ export default class Store {
         this._email = email;
         this.validate();
     }
-
-    set address(address: Address) {
-        this._address = address;
-    }
+    
+    // set address(address: Address) {
+    //     this._address = address;
+    // }
 
     activate() {
         this._active = true;
