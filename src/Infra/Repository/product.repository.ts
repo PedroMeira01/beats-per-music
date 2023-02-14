@@ -48,10 +48,9 @@ export default class ProductRepository {
 
     async findAll(): Promise<Product[]> {
         const products = await ProductModel.findAll();
-        let foundedProducts = [];
         
-        foundedProducts = products.map((product) => {
-            const foundedProduct = new Product(product.id, product.name, product.category);
+        return products.map((product) => {
+            let foundedProduct = new Product(product.id, product.name, product.category);
             foundedProduct.model = product.model;
             foundedProduct.brand = product.brand;
             foundedProduct.description = product.description;
@@ -59,7 +58,5 @@ export default class ProductRepository {
 
             return foundedProduct;
         });
-
-        return foundedProducts;
     }
 }

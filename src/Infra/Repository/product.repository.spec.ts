@@ -101,13 +101,13 @@ describe("Product repository test", () => {
         const productRepository = new ProductRepository();
 
         const product = new Product("1", "Product 1", "Category 1");
-        productRepository.create(product);
+        await productRepository.create(product);
  
         const product2 = new Product("2", "Product 2", "Category 2");
-        await productRepository.create(product);
+        await productRepository.create(product2);
 
         const products = [product, product2];
-        const foundProducts = await ProductModel.findAll();
+        const foundProducts = await productRepository.findAll();
 
         expect(products).toEqual(foundProducts);
     });
