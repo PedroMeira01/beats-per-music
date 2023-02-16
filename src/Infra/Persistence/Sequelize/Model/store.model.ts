@@ -1,4 +1,5 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript"
+import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import AdvertisementModel from "./advertisement.model";
 
 @Table({
     tableName: "stores",
@@ -17,6 +18,10 @@ export default class StoreModel extends Model {
 
     @Column({allowNull: false})
     declare email: string;
+
+    @HasMany(() => AdvertisementModel)
+    @Column
+    declare advertisement: AdvertisementModel;
 
     @Column
     declare active: boolean;

@@ -8,7 +8,7 @@ export default class Store {
     private _name: string;
     private _email: string;
     // private _address: Address;
-    // private _advertisements: Advertisement[] = [];
+    private _advertisements: Advertisement[] = [];
     private _active: boolean;
 
     constructor(id: string, cnpj: string, name: string, email: string) {

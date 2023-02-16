@@ -1,4 +1,5 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import AdvertisementModel from "./advertisement.model";
 
 @Table( {
     tableName: "products",
@@ -26,4 +27,19 @@ export default class ProductModel extends Model {
 
     @Column 
     declare approvalStatus: string;
+
+    @Column
+    declare weight: number;
+
+    @Column
+    declare height: number;
+    
+    @Column
+    declare width: number;
+
+    @Column
+    declare profundity: number;
+
+    @HasMany(() => AdvertisementModel)
+    declare advertisement: AdvertisementModel;
 }

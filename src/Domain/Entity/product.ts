@@ -7,7 +7,7 @@ export default class Product {
     _brand: string;
     _description: string;
     _category: string;
-    // _dimension: Dimension;
+    _dimension: Dimension;
     _approvalStatus: string;
 
     constructor(id: string, name: string, category: string) {

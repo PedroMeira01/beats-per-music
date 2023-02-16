@@ -1,4 +1,5 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import OrderModel from "./order.model";
 
 @Table({
     tableName: "users",
@@ -20,4 +21,8 @@ export default class UserModel extends Model {
 
     @Column
     declare active: boolean;
+
+    @HasMany(() => OrderModel)
+    @Column
+    declare orders: OrderModel;
 }
