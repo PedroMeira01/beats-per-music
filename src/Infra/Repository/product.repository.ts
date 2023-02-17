@@ -2,7 +2,7 @@ import Product from "../../Domain/Entity/product";
 import ProductRepositoryInterface from "../../Domain/Repository/product.repository-interface";
 import ProductModel from "../Persistence/Sequelize/Model/product.model";
 
-export default class ProductRepository {
+export default class ProductRepository implements ProductRepositoryInterface{
     async create(entity: Product): Promise<void> {
         await ProductModel.create({
             id: entity.id,

@@ -23,6 +23,5 @@ export default class UserModel extends Model {
     declare active: boolean;
 
     @HasMany(() => OrderModel)
-    @Column
     declare orders: OrderModel;
 }

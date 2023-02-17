@@ -2,6 +2,8 @@ import { Sequelize } from "sequelize-typescript";
 import ProductModel from "../Persistence/Sequelize/Model/product.model";
 import Product from "../../Domain/Entity/product";
 import ProductRepository from "./product.repository";
+import AdvertisementModel from "../Persistence/Sequelize/Model/advertisement.model";
+import StoreModel from "../Persistence/Sequelize/Model/store.model";
 
 describe("Product repository test", () => {
     let sequelize: Sequelize;
@@ -14,12 +16,12 @@ describe("Product repository test", () => {
             sync: { force: true },
         });
 
-        sequelize.addModels([ProductModel]);
+        sequelize.addModels([ProductModel, AdvertisementModel, StoreModel]);
         await sequelize.sync();
     });
 
     afterEach(async () => {
-        await sequelize.truncate({ cascade: true })
+        await sequelize.truncate({ cascade: true });
         await sequelize.close();
     });
 

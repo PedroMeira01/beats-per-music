@@ -13,15 +13,17 @@ export default class OrderItemModel extends Model {
     declare id: string;
 
     @ForeignKey(() => AdvertisementModel)
-    @Column
+    @Column({allowNull: false})
     declare advertisementId: string;
 
+    @ForeignKey(() => OrderModel)
+    @Column({allowNull: false})
+    declare orderId: string;
+
     @BelongsTo(() => OrderModel)
-    @Column
     declare order: OrderModel;
 
     @HasOne(() => AdvertisementModel)
-    @Column
     declare advertisement: AdvertisementModel;
 
     @Column

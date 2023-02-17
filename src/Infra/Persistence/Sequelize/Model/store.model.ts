@@ -20,7 +20,6 @@ export default class StoreModel extends Model {
     declare email: string;
 
     @HasMany(() => AdvertisementModel)
-    @Column
     declare advertisement: AdvertisementModel;
 
     @Column
