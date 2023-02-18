@@ -2,9 +2,10 @@ import { HasOne, Model } from "sequelize-typescript";
 import { BelongsTo, Column, ForeignKey, PrimaryKey, Table } from "sequelize-typescript";
 import OrderModel from "./order.model";
 import AdvertisementModel from "./advertisement.model";
+import OrderItem from "../../../../Domain/Entity/order-item";
 
 @Table({
-    tableName: "orderItem",
+    tableName: "order_items",
     timestamps: false
 })
 export default class OrderItemModel extends Model {
@@ -21,10 +22,10 @@ export default class OrderItemModel extends Model {
     declare orderId: string;
 
     @BelongsTo(() => OrderModel)
-    declare order: OrderModel;
+    declare order: Awaited<OrderModel>;
 
-    @HasOne(() => AdvertisementModel)
-    declare advertisement: AdvertisementModel;
+    @BelongsTo(() => AdvertisementModel)
+    declare advertisement: Awaited<AdvertisementModel>;
 
     @Column
     declare value: number;

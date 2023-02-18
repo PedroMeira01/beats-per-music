@@ -15,12 +15,6 @@ export default class OrderModel extends Model {
     @Column({allowNull: false})
     declare userId: string;
 
-    @BelongsTo(() => UserModel)
-    declare user: UserModel;
-
-    @HasMany(() => OrderItemModel)
-    declare items: OrderItemModel[];
-
     @Column
     declare date: Date;
     
@@ -29,4 +23,10 @@ export default class OrderModel extends Model {
 
     @Column
     declare total: number;
+
+    @BelongsTo(() => UserModel)
+    declare user: Awaited<UserModel>;
+
+    @HasMany(() => OrderItemModel)
+    declare items: OrderItemModel[];
 }

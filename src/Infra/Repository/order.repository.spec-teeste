@@ -7,6 +7,7 @@ import OrderItemModel from "../Persistence/Sequelize/Model/order-item.model";
 import AdvertisementModel from "../Persistence/Sequelize/Model/advertisement.model";
 import UserModel from "../Persistence/Sequelize/Model/user.model";
 import ProductModel from "../Persistence/Sequelize/Model/product.model";
+import StoreModel from "../Persistence/Sequelize/Model/store.model";
 
 describe("Order repository test", () => {
     let sequelize: Sequelize;
@@ -19,7 +20,7 @@ describe("Order repository test", () => {
             sync: { force: true }
         });
 
-        sequelize.addModels([UserModel, OrderModel, OrderItemModel, AdvertisementModel, ProductModel]);
+        sequelize.addModels([OrderModel, UserModel, OrderItemModel, AdvertisementModel, ProductModel, StoreModel]);
         await sequelize.sync();
     });
 

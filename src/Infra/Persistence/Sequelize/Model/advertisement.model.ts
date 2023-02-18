@@ -1,4 +1,5 @@
-import { BelongsTo, Column, ForeignKey, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
+import OrderItemModel from "./order-item.model";
 import ProductModel from "./product.model";
 import StoreModel from "./store.model";
 
@@ -42,8 +43,11 @@ export default class AdvertisementModel extends Model{
     declare totalSold: number;
 
     @BelongsTo(() => StoreModel)
-    declare store: StoreModel;
+    declare store: Awaited<StoreModel>;
 
-    @HasOne(() => ProductModel)
-    declare product: ProductModel;
+    @HasMany(() => OrderItemModel)
+    declare orderItems: Awaited<OrderItemModel>;
+
+    @BelongsTo(() => ProductModel)
+    declare product: Awaited<ProductModel>;
 }

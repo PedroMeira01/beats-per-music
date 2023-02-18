@@ -1,3 +1,4 @@
+import Dimension from "../../Domain/Entity/dimension";
 import Product from "../../Domain/Entity/product";
 import ProductRepositoryInterface from "../../Domain/Repository/product.repository-interface";
 import ProductModel from "../Persistence/Sequelize/Model/product.model";
@@ -11,6 +12,10 @@ export default class ProductRepository implements ProductRepositoryInterface{
             brand: entity.brand,
             description: entity.description,
             category: entity.category,
+            weight: entity.dimension.weight,
+            height: entity.dimension.height,
+            width: entity.dimension.width,
+            profundity: entity.dimension.profundity,
             approvalStatus: entity.approvalStatus
        });
     }
@@ -23,6 +28,10 @@ export default class ProductRepository implements ProductRepositoryInterface{
                 brand: entity.brand,
                 description: entity.description,
                 category: entity.category,
+                weight: entity.dimension.weight,
+                height: entity.dimension.height,
+                width: entity.dimension.width,
+                profundity: entity.dimension.profundity,
                 approvalStatus: entity.approvalStatus
             }, {
                 where: {
@@ -43,6 +52,14 @@ export default class ProductRepository implements ProductRepositoryInterface{
         foundedProduct.description = product.description;
         foundedProduct.approvalStatus = product.approvalStatus;
 
+        const dimensions = new Dimension();
+        dimensions.weight = product.weight;
+        dimensions.height = product.height;
+        dimensions.width = product.width;
+        dimensions.profundity = product.profundity;
+
+        foundedProduct.dimension = dimensions;
+
         return foundedProduct;
     }
 
@@ -55,6 +72,14 @@ export default class ProductRepository implements ProductRepositoryInterface{
             foundedProduct.brand = product.brand;
             foundedProduct.description = product.description;
             foundedProduct.approvalStatus = product.approvalStatus;
+
+            const dimensions = new Dimension()
+            dimensions.weight = product.weight;
+            dimensions.height = product.height;
+            dimensions.width = product.width;
+            dimensions.profundity = product.profundity;
+
+            foundedProduct.dimension = dimensions;
 
             return foundedProduct;
         });

@@ -23,5 +23,5 @@ export default class UserModel extends Model {
     declare active: boolean;
 
     @HasMany(() => OrderModel)
-    declare orders: OrderModel;
+    declare orders: Awaited<OrderModel>;
 }

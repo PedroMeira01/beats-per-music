@@ -3,7 +3,11 @@ import ProductModel from "../Persistence/Sequelize/Model/product.model";
 import Product from "../../Domain/Entity/product";
 import ProductRepository from "./product.repository";
 import AdvertisementModel from "../Persistence/Sequelize/Model/advertisement.model";
+import Dimension from "../../Domain/Entity/dimension";
 import StoreModel from "../Persistence/Sequelize/Model/store.model";
+import OrderItemModel from "../Persistence/Sequelize/Model/order-item.model";
+import OrderModel from "../Persistence/Sequelize/Model/order.model";
+import UserModel from "../Persistence/Sequelize/Model/user.model";
 
 describe("Product repository test", () => {
     let sequelize: Sequelize;
@@ -13,10 +17,10 @@ describe("Product repository test", () => {
             dialect: 'sqlite',
             storage: ':memory',
             logging: false,
-            sync: { force: true },
+            sync: { force: true }
         });
 
-        sequelize.addModels([ProductModel, AdvertisementModel, StoreModel]);
+        sequelize.addModels([ProductModel, AdvertisementModel, StoreModel, OrderItemModel, OrderModel, UserModel])
         await sequelize.sync();
     });
 
@@ -28,18 +32,25 @@ describe("Product repository test", () => {
     it("Should create a product", async () => {
         const productRepository = new ProductRepository();
         const product = new Product("1", "Product 1", "Category 1");
+        const dimensions = new Dimension();
+     
+        product.dimension = dimensions;
 
         await productRepository.create(product);
 
         const productModel = await ProductModel.findOne({ where: { id: "1"}});
 
         expect(productModel.toJSON()).toStrictEqual({
-            id: "1",
-            name: "Product 1",
+            id: product.id,
+            name: product.name,
             model: null,
             brand: null,
             description: null,
-            category: "Category 1",
+            category: product.category,
+            weight: product.dimension.weight,
+            height: product.dimension.height,
+            width: product.dimension.width,
+            profundity: product.dimension.profundity,
             approvalStatus: null
         });
     });
@@ -47,18 +58,25 @@ describe("Product repository test", () => {
     it("Should update a product", async () => {
          const productRepository = new ProductRepository();
          const product = new Product("1", "Product 1", "Category 1");
+         const dimensions = new Dimension();
+            
+         product.dimension = dimensions;
 
          await productRepository.create(product);
 
          const productModel = await ProductModel.findOne({ where: { id: "1" }});
 
          expect(productModel.toJSON()).toStrictEqual({
-            id: "1",
-            name: "Product 1",
+            id: product.id,
+            name: product.name,
             model: null,
             brand: null,
             description: null,
-            category: "Category 1",
+            category: product.category,
+            weight: product.dimension.weight,
+            height: product.dimension.height,
+            width: product.dimension.width,
+            profundity: product.dimension.profundity,
             approvalStatus: null
          });
 
@@ -70,12 +88,16 @@ describe("Product repository test", () => {
          const productModel2 = await ProductModel.findOne({ where: { id: "1" }});
 
          expect(productModel2.toJSON()).toStrictEqual({
-            id: "1",
-            name: "Product 3",
-            model: "Model 3",
+            id: product.id,
+            name: product.name,
+            model: product.model,
             brand: null,
             description: null,
-            category: "Category 1",
+            category: product.category,
+            weight: product.dimension.weight,
+            height: product.dimension.height,
+            width: product.dimension.width,
+            profundity: product.dimension.profundity,
             approvalStatus: null
          });
          
@@ -85,6 +107,9 @@ describe("Product repository test", () => {
 
             const productRepository = new ProductRepository();
             const product = new Product("1", "Product 4", "Category 4");
+            const dimensions = new Dimension();
+            
+            product.dimension = dimensions;
     
             await productRepository.create(product);
     
@@ -98,6 +123,10 @@ describe("Product repository test", () => {
                 brand: foundProduct.brand,
                 description: foundProduct.description,
                 category: foundProduct.category,
+                weight: foundProduct.dimension.weight,
+                height: foundProduct.dimension.height,
+                width: foundProduct.dimension.width,
+                profundity: foundProduct.dimension.profundity,
                 approvalStatus: foundProduct.approvalStatus
             });
         
@@ -112,6 +141,11 @@ describe("Product repository test", () => {
             product.brand = null;
             product.description = null;
             product.approvalStatus = null;
+
+            const dimensions = new Dimension();
+            
+            product.dimension = dimensions;
+            
             await productRepository.create(product);
      
             const product2 = new Product("2", "Product 2", "Category 2");
@@ -119,6 +153,11 @@ describe("Product repository test", () => {
             product2.brand = null;
             product2.description = null;
             product2.approvalStatus = null;
+
+            const dimensions2 = new Dimension();
+            
+            product2.dimension = dimensions2;
+
             await productRepository.create(product2);
     
             const products = [product, product2];

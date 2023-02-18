@@ -30,8 +30,8 @@ export default class AddressModel extends Model {
     declare state: string;
 
     @BelongsTo(() => UserModel)
-    declare user: UserModel;
+    declare user: Awaited<UserModel>;
 
     @BelongsTo(() => StoreModel)
-    declare store: StoreModel;
+    declare store: Awaited<StoreModel>;
 }
