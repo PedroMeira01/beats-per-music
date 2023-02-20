@@ -7,8 +7,8 @@ export default class Store {
     private _cnpj: string;
     private _name: string;
     private _email: string;
-    // private _address: Address;
-    // private _advertisements: Advertisement[] = [];
+    private _address: Address;
+    private _advertisements: Advertisement[] = [];
     private _active: boolean;
 
     constructor(id: string, cnpj: string, name: string, email: string) {
@@ -37,6 +37,14 @@ export default class Store {
         }
     }
 
+    get id() {
+        return this._id;
+    }
+
+    get cnpj() {
+        return this._cnpj;
+    }
+
     get name() {
         return this._name;
     }
@@ -45,9 +53,13 @@ export default class Store {
         return this._email;
     }
 
-    // get address() {
-    //     return this._address;
-    // }
+    get address() {
+        return this._address;
+    }
+
+    get active() {
+        return this._active;
+    }
 
     changeName(name: string) {
         this._name = name;
@@ -59,9 +71,9 @@ export default class Store {
         this.validate();
     }
     
-    // set address(address: Address) {
-    //     this._address = address;
-    // }
+    set address(address: Address) {
+        this._address = address;
+    }
 
     activate() {
         this._active = true;

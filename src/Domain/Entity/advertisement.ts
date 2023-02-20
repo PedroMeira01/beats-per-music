@@ -1,5 +1,6 @@
 export default class Advertisement {
        private _id: string;
+       private _storeId: string;
        private _productId: string;
        private _photo: string;
        private _description: string;
@@ -7,12 +8,11 @@ export default class Advertisement {
        private _preservation: string;
        private _rate: number;
        private _stockQuantity: number;
-       private _discount: number;
-       private _discountPercentage: number;
        private _totalSold: number;
 
-        constructor(id: string, productId: string, price: number, conservation: string, stockQuantity: number) {
+        constructor(id: string, storeId: string, productId: string, price: number, conservation: string, stockQuantity: number) {
             this._id = id;
+            this._storeId = storeId;
             this._productId = productId;
             this._price = price;
             this._preservation = conservation;

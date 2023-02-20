@@ -7,7 +7,7 @@ export default class Product {
     _brand: string;
     _description: string;
     _category: string;
-    // _dimension: Dimension;
+    _dimension: Dimension;
     _approvalStatus: string;
 
     constructor(id: string, name: string, category: string) {
@@ -55,6 +55,10 @@ export default class Product {
         return this._category;
     }
 
+    get dimension(): Dimension {
+        return this._dimension;
+    }
+ 
     get approvalStatus(): string {
         return this._approvalStatus;
     }
@@ -73,6 +77,10 @@ export default class Product {
 
     set approvalStatus(approvalStatus: string) {
         this._approvalStatus = approvalStatus;
+    }
+
+    set dimension(dimension: Dimension) {
+        this._dimension = dimension;
     }
 
     changeName(name: string) {
