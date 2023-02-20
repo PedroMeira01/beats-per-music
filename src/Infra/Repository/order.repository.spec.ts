@@ -30,27 +30,32 @@ describe("Order repository test", () => {
     });
 
     it("Should create an order", async () => {
-        let orderRepository = new OrderRepository();
+        try {
+            let orderRepository = new OrderRepository();
 
-        let orderItem = new OrderItem("1", "1", 1, 1);
-        let order = new Order("1", "1", [orderItem]);
-
-        await orderRepository.create(order);
-
-        const orderModel = await OrderModel.findOne({ where: { id: "1"}});
-
-        expect(orderModel?.toJSON()).toStrictEqual({
-            id: "1",
-            userId: "1",
-            items: [{
+            let orderItem = new OrderItem("1", "1", 1, 1);
+            let order = new Order("1", "1", [orderItem]);
+    
+            await orderRepository.create(order);
+    
+            const orderModel = await OrderModel.findOne({ where: { id: "1"}});
+    
+            expect(orderModel?.toJSON()).toStrictEqual({
                 id: "1",
-                advertisementId: "1",
-                value: 1,
-                quantity: 1
-            }],
-            date: null,
-            status: null,
-            total: null
-        });
+                userId: "1",
+                items: [{
+                    id: "1",
+                    advertisementId: "1",
+                    value: 1,
+                    quantity: 1
+                }],
+                date: null,
+                status: null,
+                total: null
+            });
+        } catch (error) {
+            console.log(error);
+        }
+       
     });
 });

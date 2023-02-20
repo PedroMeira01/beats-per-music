@@ -28,5 +28,5 @@ export default class OrderModel extends Model {
     declare user: Awaited<UserModel>;
 
     @HasMany(() => OrderItemModel)
-    declare items: OrderItemModel[];
+    declare items: Awaited<OrderItemModel[]>;
 }

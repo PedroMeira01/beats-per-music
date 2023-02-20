@@ -20,39 +20,39 @@ describe("Product repository test", () => {
             sync: { force: true }
         });
 
-        sequelize.addModels([ProductModel, AdvertisementModel, StoreModel, OrderItemModel, OrderModel, UserModel])
+        await sequelize.addModels([ProductModel, UserModel, OrderModel, OrderItemModel, AdvertisementModel, StoreModel])
         await sequelize.sync();
     });
 
     afterEach(async () => {
         await sequelize.truncate({ cascade: true });
-        await sequelize.close();
+        await sequelize.close();  
     });
 
     it("Should create a product", async () => {
-        const productRepository = new ProductRepository();
-        const product = new Product("1", "Product 1", "Category 1");
-        const dimensions = new Dimension();
-     
-        product.dimension = dimensions;
-
-        await productRepository.create(product);
-
-        const productModel = await ProductModel.findOne({ where: { id: "1"}});
-
-        expect(productModel.toJSON()).toStrictEqual({
-            id: product.id,
-            name: product.name,
-            model: null,
-            brand: null,
-            description: null,
-            category: product.category,
-            weight: product.dimension.weight,
-            height: product.dimension.height,
-            width: product.dimension.width,
-            profundity: product.dimension.profundity,
-            approvalStatus: null
-        });
+            const productRepository = new ProductRepository();
+            const product = new Product("1", "Product 1", "Category 1");
+            const dimensions = new Dimension();
+         
+            product.dimension = dimensions;
+    
+            await productRepository.create(product);
+    
+            const productModel = await ProductModel.findOne({ where: { id: "1"}});
+    
+            expect(productModel.toJSON()).toStrictEqual({
+                id: product.id,
+                name: product.name,
+                model: null,
+                brand: null,
+                description: null,
+                category: product.category,
+                weight: product.dimension.weight,
+                height: product.dimension.height,
+                width: product.dimension.width,
+                profundity: product.dimension.profundity,
+                approvalStatus: null
+            });
     });
 
     it("Should update a product", async () => {
@@ -100,7 +100,6 @@ describe("Product repository test", () => {
             profundity: product.dimension.profundity,
             approvalStatus: null
          });
-         
     });
 
     it("Should find a product", async () => {
