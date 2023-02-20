@@ -1,5 +1,5 @@
 import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
-import AddressModel from "./address.model";
+import UserAddressModel from "./user-address.model";
 import OrderModel from "./order.model";
 
 @Table({
@@ -20,8 +20,8 @@ export default class UserModel extends Model {
     @Column({allowNull: false})
     declare email: string;
     
-    @HasMany(() => AddressModel)
-    declare address: AddressModel;
+    @HasMany(() => UserAddressModel)
+    declare address: UserAddressModel;
     
     @Column
     declare active: boolean;

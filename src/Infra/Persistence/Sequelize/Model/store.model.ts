@@ -1,6 +1,6 @@
 import { Column, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
-import AddressModel from "./address.model";
 import AdvertisementModel from "./advertisement.model";
+import StoreAddressModel from "./store-address.model";
 
 @Table({
     tableName: "stores",
@@ -23,8 +23,8 @@ export default class StoreModel extends Model {
     @HasMany(() => AdvertisementModel)
     declare advertisement: Awaited<AdvertisementModel>;
 
-    @HasOne(() => AddressModel)
-    declare address: AddressModel;
+    @HasOne(() => StoreAddressModel)
+    declare address: StoreAddressModel;
 
     @Column
     declare active: boolean;

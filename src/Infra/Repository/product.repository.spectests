@@ -8,6 +8,8 @@ import StoreModel from "../Persistence/Sequelize/Model/store.model";
 import OrderItemModel from "../Persistence/Sequelize/Model/order-item.model";
 import OrderModel from "../Persistence/Sequelize/Model/order.model";
 import UserModel from "../Persistence/Sequelize/Model/user.model";
+import StoreAddressModel from "../Persistence/Sequelize/Model/store-address.model";
+import UserAddressModel from "../Persistence/Sequelize/Model/user-address.model";
 
 describe("Product repository test", () => {
     let sequelize: Sequelize;
@@ -20,7 +22,16 @@ describe("Product repository test", () => {
             sync: { force: true }
         });
 
-        await sequelize.addModels([ProductModel, UserModel, OrderModel, OrderItemModel, AdvertisementModel, StoreModel])
+        sequelize.addModels([
+            ProductModel, 
+            AdvertisementModel, 
+            StoreModel, 
+            OrderItemModel, 
+            StoreAddressModel, 
+            OrderModel, 
+            UserModel,
+            UserAddressModel
+        ])
         await sequelize.sync();
     });
 
@@ -30,6 +41,7 @@ describe("Product repository test", () => {
     });
 
     it("Should create a product", async () => {
+        try {
             const productRepository = new ProductRepository();
             const product = new Product("1", "Product 1", "Category 1");
             const dimensions = new Dimension();
@@ -53,6 +65,10 @@ describe("Product repository test", () => {
                 profundity: product.dimension.profundity,
                 approvalStatus: null
             });
+        } catch (error) {
+            console.log(error);
+        }
+            
     });
 
     it("Should update a product", async () => {

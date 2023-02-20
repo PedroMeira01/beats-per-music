@@ -7,14 +7,14 @@ export default class UserRepository implements UserRepositoryInterface {
     }
 
     async update(entity: User): Promise<void> {
-
+        throw new Error("");
     }
 
     async find(id: string): Promise<User> {
-
+        throw new Error("");
     }
 
     async findAll(): Promise<User[]> {
-
+        throw new Error("");
     }
 }

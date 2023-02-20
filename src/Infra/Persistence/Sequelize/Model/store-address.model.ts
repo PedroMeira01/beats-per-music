@@ -1,12 +1,12 @@
-import { BelongsTo, Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
 import UserModel from "./user.model";
 import StoreModel from "./store.model";
 
 @Table({
-    tableName: "address",
+    tableName: "store_address",
     timestamps: false
 })
-export default class AddressModel extends Model {
+export default class StoreAddressModel extends Model {
     @PrimaryKey
     @Column
     declare id: string;
@@ -29,8 +29,8 @@ export default class AddressModel extends Model {
     @Column
     declare state: string;
 
-    @BelongsTo(() => UserModel)
-    declare user: Awaited<UserModel>;
+    @ForeignKey(() => StoreModel)
+    declare storeId: StoreModel;
 
     @BelongsTo(() => StoreModel)
     declare store: Awaited<StoreModel>;
