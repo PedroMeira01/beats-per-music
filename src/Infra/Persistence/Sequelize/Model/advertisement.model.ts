@@ -14,11 +14,11 @@ export default class AdvertisementModel extends Model{
     declare id: string;
 
     @ForeignKey(() => StoreModel)
-    @Column
+    @Column({allowNull: false})
     declare storeId: string;
 
     @ForeignKey(() => ProductModel)
-    @Column
+    @Column({allowNull: false})
     declare productId: string;
 
     @Column

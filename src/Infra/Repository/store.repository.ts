@@ -35,7 +35,7 @@
 //         });
 
 //         const foundStore = new Store(store.id, store.cnpj, store.name, store.email);
-//         foundStore.address = new Address(store.address.street, store.address.number, store.address.neighboor, store.address.zip, store.address.city, store.address.state);
+//         foundStore.address = new Address(store.address.street, store.address.number, store.address.neighborhood, store.address.zip, store.address.city, store.address.state);
 //         foundStore.activate() = store.active;
 //     }
 

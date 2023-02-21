@@ -1,4 +1,5 @@
 export default class Address {
+    private _id: string;
     private _street: string;
     private _number: number;
     private _neighborhood: string;
@@ -6,7 +7,8 @@ export default class Address {
     private _city: string;
     private _state: string;
 
-    constructor(street: string, number: number, neighborhood: string, zip: string, city: string, state: string) {
+    constructor(id: string, street: string, number: number, neighborhood: string, zip: string, city: string, state: string) {
+        this._id = id;
         this._street = street;
         this._number = number;
         this._neighborhood = neighborhood;
@@ -16,6 +18,10 @@ export default class Address {
     }
 
     validate() {
+        if (this._id.length === 0) {
+            throw new Error("O ID é obrigatório.");
+        }
+
         if (this._street.length === 0) {
             throw new Error("A rua é obrigatória.");
         }
@@ -39,5 +45,33 @@ export default class Address {
         if (this._state.length === 0) {
             throw new Error("O estado é obrigatório");
         }
+    }
+
+    get id(): string {
+        return this._id;
+    }
+
+    get street(): string {
+        return this._street;
+    }
+
+    get number(): number {
+        return this._number;
+    }
+
+    get neighborhood(): string {
+        return this._neighborhood;
+    }
+
+    get zip(): string {
+        return this._zip;
+    }
+
+    get city(): string {
+        return this._city;
+    }
+
+    get state(): string {
+        return this._state;
     }
 }
