@@ -17,10 +17,10 @@ export default class UserAddressModel extends Model {
     declare number: number;
 
     @Column
-    declare zip: number;
+    declare zip: string;
 
     @Column
-    declare neighboor: string;
+    declare neighborhood: string;
 
     @Column
     declare city: string;
@@ -29,7 +29,8 @@ export default class UserAddressModel extends Model {
     declare state: string;
 
     @ForeignKey(() => UserModel)
-    declare userId: UserModel;
+    @Column({allowNull: false})
+    declare userId: string;
 
     @BelongsTo(() => UserModel)
     declare user: Awaited<UserModel>;

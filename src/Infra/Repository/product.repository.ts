@@ -46,11 +46,11 @@ export default class ProductRepository implements ProductRepositoryInterface{
             where: { id }
         });
 
-        const foundedProduct = new Product(product.id, product.name, product.category);
-        foundedProduct.model = product.model;
-        foundedProduct.brand = product.brand;
-        foundedProduct.description = product.description;
-        foundedProduct.approvalStatus = product.approvalStatus;
+        const foundProduct = new Product(product.id, product.name, product.category);
+        foundProduct.model = product.model;
+        foundProduct.brand = product.brand;
+        foundProduct.description = product.description;
+        foundProduct.approvalStatus = product.approvalStatus;
 
         const dimensions = new Dimension();
         dimensions.weight = product.weight;
@@ -58,20 +58,20 @@ export default class ProductRepository implements ProductRepositoryInterface{
         dimensions.width = product.width;
         dimensions.profundity = product.profundity;
 
-        foundedProduct.dimension = dimensions;
+        foundProduct.dimension = dimensions;
 
-        return foundedProduct;
+        return foundProduct;
     }
 
     async findAll(): Promise<Product[]> {
         const products = await ProductModel.findAll();
         
         return products.map((product) => {
-            let foundedProduct = new Product(product.id, product.name, product.category);
-            foundedProduct.model = product.model;
-            foundedProduct.brand = product.brand;
-            foundedProduct.description = product.description;
-            foundedProduct.approvalStatus = product.approvalStatus;
+            let foundProduct = new Product(product.id, product.name, product.category);
+            foundProduct.model = product.model;
+            foundProduct.brand = product.brand;
+            foundProduct.description = product.description;
+            foundProduct.approvalStatus = product.approvalStatus;
 
             const dimensions = new Dimension()
             dimensions.weight = product.weight;
@@ -79,9 +79,9 @@ export default class ProductRepository implements ProductRepositoryInterface{
             dimensions.width = product.width;
             dimensions.profundity = product.profundity;
 
-            foundedProduct.dimension = dimensions;
+            foundProduct.dimension = dimensions;
 
-            return foundedProduct;
+            return foundProduct;
         });
     }
 }

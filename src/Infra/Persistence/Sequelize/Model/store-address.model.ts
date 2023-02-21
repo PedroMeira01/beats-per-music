@@ -21,7 +21,7 @@ export default class StoreAddressModel extends Model {
     declare zip: number;
 
     @Column
-    declare neighboor: string;
+    declare neighborhood: string;
 
     @Column
     declare city: string;

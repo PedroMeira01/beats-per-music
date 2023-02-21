@@ -24,7 +24,7 @@ export default class StoreModel extends Model {
     declare advertisement: Awaited<AdvertisementModel>;
 
     @HasOne(() => StoreAddressModel)
-    declare address: StoreAddressModel;
+    declare address: Awaited<StoreAddressModel>;
 
     @Column
     declare active: boolean;

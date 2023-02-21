@@ -11,7 +11,7 @@ export default class UserModel extends Model {
     @Column
     declare id: string;
 
-    @Column({allowNull: false})
+    @Column
     declare cpf: string;
 
     @Column({allowNull: false})
@@ -21,12 +21,11 @@ export default class UserModel extends Model {
     declare email: string;
     
     @HasMany(() => UserAddressModel)
-    declare address: UserAddressModel;
+    declare address: Awaited<UserAddressModel[]>;
     
     @Column
     declare active: boolean;
 
     @HasMany(() => OrderModel)
     declare orders: Awaited<OrderModel>;
-
 }
