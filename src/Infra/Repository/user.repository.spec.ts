@@ -138,4 +138,31 @@ describe("User repository tests", () => {
             active: foundUser.isActive()
         });
     });
+
+    it("Should find all users", async () => {
+            const userRepository = new UserRepository();
+
+            const user = new User("1", "User 1", "test@mail.com");
+            user.cpf = "123456789";
+            const address = new Address("1", "Street 1", 1, "Neighborhood 1", "Zip 1", "City 1", "State 1");
+            
+            user.address = [address];
+
+            await userRepository.create(user);
+
+            const user2 = new User("2", "User 2", "test@mail.com");
+            user2.cpf = "987654321";
+            const address2 = new Address("2", "Street 2", 2, "Neighborhood 2", "Zip 2", "City 2", "State 2");
+            
+            user2.address = [address2];
+
+            await userRepository.create(user2);
+
+            const users = [user, user2];
+            const foundUsers = await userRepository.findAll();
+            console.log(foundUsers);
+            console.log(users);
+            expect(users).toEqual(foundUsers);
+        
+    });
 });

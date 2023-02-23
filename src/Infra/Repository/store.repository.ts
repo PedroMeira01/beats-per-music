@@ -1,45 +1,64 @@
-// import Address from "../../Domain/Entity/address";
-// import Store from "../../Domain/Entity/store";
-// import StoreRepositoryInterface from "../../Domain/Repository/store-repository-interface";
-// import StoreModel from "../Persistence/Sequelize/Model/store.model";
+import Address from "../../Domain/Entity/address";
+import Store from "../../Domain/Entity/store";
+import StoreRepositoryInterface from "../../Domain/Repository/store-repository-interface";
+import StoreAddressModel from "../Persistence/Sequelize/Model/store-address.model";
+import StoreModel from "../Persistence/Sequelize/Model/store.model";
 
-// export default class StoreRepository implements StoreRepositoryInterface {
-//     async create(entity: Store): Promise<void> {
-//         await StoreModel.create({
-//             id: entity.id,
-//             cnpj: entity.cnpj,
-//             name: entity.name,
-//             email: entity.email,
-//             address: entity.address,
-//             active: entity.active
-//         });
-//     }
+export default class StoreRepository implements StoreRepositoryInterface {
+    async create(entity: Store): Promise<void> {
+        await StoreModel.create({
+            id: entity.id,
+            cnpj: entity.cnpj,
+            name: entity.name,
+            email: entity.email,
+            address: {
+                id: entity.address.id,
+                street: entity.address.street,
+                number: entity.address.number,
+                neighborhood: entity.address.neighborhood,
+                zip: entity.address.zip,
+                city: entity.address.city,
+                state: entity.address.state
+            },
+            active: entity.active
+        }, {
+            include: [{ model: StoreAddressModel}]
+        });
+    }
 
-//     async update(entity: Store): Promise<void> {
-//         await StoreModel.update({
-//             cnpj: entity.cnpj,
-//             name: entity.name,
-//             email: entity.email,
-//             address: entity.address,
-//             active: entity.active
-//         }, {
-//             where: {
-//                 id: entity.id
-//             }
-//         });
-//     }
+    async update(entity: Store): Promise<void> {
+        await StoreModel.update({
+            cnpj: entity.cnpj,
+            name: entity.name,
+            email: entity.email,
+            address: {
+                id: entity.address.id,
+                street: entity.address.street,
+                number: entity.address.number,
+                neighborhood: entity.address.neighborhood,
+                zip: entity.address.zip,
+                city: entity.address.city,
+                state: entity.address.state
+            },
+            active: entity.active
+        }, {
+            where: {
+                id: entity.id
+            }
+        });
+    }
 
-//     async find(id: string): Promise<Store> {
-//         const store = await StoreModel.findOne({
-//             where: { id }
-//         });
+    async find(id: string): Promise<Store> {
+        const store = await StoreModel.findOne({ where: { id }, include: ["address"]});
 
-//         const foundStore = new Store(store.id, store.cnpj, store.name, store.email);
-//         foundStore.address = new Address(store.address.street, store.address.number, store.address.neighborhood, store.address.zip, store.address.city, store.address.state);
-//         foundStore.activate() = store.active;
-//     }
+        const foundStore = new Store(store.id, store.cnpj, store.name, store.email);
+        foundStore.address = new Address(store.address.id, store.address.street, store.address.number, store.address.neighborhood, store.address.zip, store.address.city, store.address.state);
+        store.active = foundStore.isActive();
 
-//     async findAll(): Promise<Store[]> {
+        return foundStore;
+    }
 
-//     }
-// }
+    async findAll(): Promise<Store[]> {
+        throw new Error("");
+    }
+}
