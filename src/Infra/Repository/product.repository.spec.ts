@@ -41,34 +41,29 @@ describe("Product repository test", () => {
     });
 
     it("Should create a product", async () => {
-        try {
-            const productRepository = new ProductRepository();
-            const product = new Product("1", "Product 1", "Category 1");
-            const dimensions = new Dimension();
-         
-            product.dimension = dimensions;
-    
-            await productRepository.create(product);
-    
-            const productModel = await ProductModel.findOne({ where: { id: "1"}});
-    
-            expect(productModel.toJSON()).toStrictEqual({
-                id: product.id,
-                name: product.name,
-                model: null,
-                brand: null,
-                description: null,
-                category: product.category,
-                weight: product.dimension.weight,
-                height: product.dimension.height,
-                width: product.dimension.width,
-                profundity: product.dimension.profundity,
-                approvalStatus: null
-            });
-        } catch (error) {
-            console.log(error);
-        }
-            
+        const productRepository = new ProductRepository();
+        const product = new Product("1", "Product 1", "Category 1");
+        const dimensions = new Dimension();
+        
+        product.dimension = dimensions;
+
+        await productRepository.create(product);
+
+        const productModel = await ProductModel.findOne({ where: { id: "1"}});
+
+        expect(productModel.toJSON()).toStrictEqual({
+            id: product.id,
+            name: product.name,
+            model: null,
+            brand: null,
+            description: null,
+            category: product.category,
+            weight: product.dimension.weight,
+            height: product.dimension.height,
+            width: product.dimension.width,
+            profundity: product.dimension.profundity,
+            approvalStatus: null
+        });
     });
 
     it("Should update a product", async () => {

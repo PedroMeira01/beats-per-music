@@ -59,6 +59,15 @@ export default class StoreRepository implements StoreRepositoryInterface {
     }
 
     async findAll(): Promise<Store[]> {
-        throw new Error("");
+        const stores = await StoreModel.findAll({ include: ["address"]});
+
+        return stores.map((store) => {
+            const foundStore = new Store(store.id, store.cnpj, store.name, store.email);
+            const address = new Address(store.address.id, store.address.street, store.address.number, store.address.neighborhood, store.address.zip, store.address.city, store.address.state);
+            foundStore.address = address;
+            store.active ? foundStore.activate() : foundStore.deactivate();
+                        
+            return foundStore;
+        });
     }
 }
