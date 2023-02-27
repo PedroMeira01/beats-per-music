@@ -8,8 +8,7 @@ export default class Store {
     private _name: string;
     private _email: string;
     private _address: Address;
-    private _advertisements: Advertisement[] = [];
-    private _active: boolean;
+    private _active: boolean = true;
 
     constructor(id: string, cnpj: string, name: string, email: string) {
         this._id = id;
@@ -81,5 +80,9 @@ export default class Store {
 
     deactivate() {
         this._active = false;
+    }
+
+    isActive() {
+        return this._active;
     }
 }

@@ -25,6 +25,10 @@ export default class Advertisement {
                 throw new Error("O ID é obrigatório.");
             }
     
+            if (this._storeId.length === 0) {
+                throw new Error("O ID da loja é obrigatório.");
+            }
+
             if (this._productId.length === 0) {
                 throw new Error("O ID do produto é obrigatório.");
             }
@@ -40,5 +44,45 @@ export default class Advertisement {
             if (this._stockQuantity === 0) {
                 throw new Error("A quantidade em estoque do produto é obrigatória.");
             }
+        }
+
+        get id(): string {
+            return this._id;
+        }
+
+        get storeId(): string {
+            return this._storeId;
+        }
+
+        get productId(): string {
+            return this._productId;
+        }
+
+        get photo(): string {
+            return this._photo;
+        }
+
+        get description(): string {
+            return this._description;
+        }
+
+        get price(): number {
+            return this._price;
+        }
+
+        get preservation(): string {
+            return this._preservation;
+        }
+
+        get rate(): number {
+            return this._rate;
+        }
+
+        get stockQuantity(): number {
+            return this._stockQuantity;
+        }
+
+        get totalSold(): number {
+            return this._totalSold;
         }
     }

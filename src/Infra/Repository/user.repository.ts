@@ -61,6 +61,21 @@ export default class UserRepository implements UserRepositoryInterface {
     }
 
     async findAll(): Promise<User[]> {
-        throw new Error("");
+        const users = await UserModel.findAll({include: ["address"]});
+
+        return users.map((user) => {
+            let foundUser = new User(user.id, user.name, user.email);
+            foundUser.cpf = user.cpf;
+            user.active ? foundUser.activate() : foundUser.deactivate();
+
+            let userAddresses: Address[] = user.address.map((address) => {
+                let userAddress = new Address(address.id, address.street, address.number, address.neighborhood, address.zip, address.city, address.state);
+                return userAddress;
+            });
+            
+            foundUser.address = userAddresses;
+
+            return foundUser;
+        });
     }
 }

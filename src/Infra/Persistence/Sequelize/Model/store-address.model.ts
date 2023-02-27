@@ -1,5 +1,4 @@
 import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
-import UserModel from "./user.model";
 import StoreModel from "./store.model";
 
 @Table({
@@ -18,7 +17,7 @@ export default class StoreAddressModel extends Model {
     declare number: number;
 
     @Column
-    declare zip: number;
+    declare zip: string;
 
     @Column
     declare neighborhood: string;
